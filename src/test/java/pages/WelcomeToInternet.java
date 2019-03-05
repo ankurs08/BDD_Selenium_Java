@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.sikuli.script.FindFailed;
 
 import utils.WebUtils;
 
@@ -81,7 +82,7 @@ public class WelcomeToInternet {
 		System.out.println(webUtils.getText(abTestText));
 	}
 
-	public void launchURL() {
+	public void launchURL(){
 		webUtils.launchURL("https://the-internet.herokuapp.com");
 	}
 

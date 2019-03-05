@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -15,6 +16,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.sikuli.script.FindFailed;
+import org.sikuli.script.Screen;
 
 public class WebUtils {
 	public static WebDriver driver;
@@ -27,13 +30,14 @@ public class WebUtils {
 	/************************************************************************
 	 * The function initiates the webdriver instance The driver input is taken from
 	 * the properties file 
-	 * Params: none 
-	 * Return: void 
+	 * @param: none 
+	 * @return: void 
 	 ******************************************************************************/
 	public void initiateDriver() throws IOException {
 		if (propUtil.getPropValue("browser").equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", "D:\\chromedriver_win32\\chromedriver (2).exe");
 			ChromeOptions chromeOpts = new ChromeOptions();
+			chromeOpts.addExtensions(new File("C:\\Users\\ash223.SAPIENT\\Downloads\\extension_1_0_9_0.crx"));
 			// only required when headless execution is required
 			// chromeOpts.addArguments("--headless");
 			driver = new ChromeDriver(chromeOpts);
@@ -47,10 +51,12 @@ public class WebUtils {
 
 	/****************************
 	 * The function launches URL 
-	 * Params: String
-	 * Return: void
+	 * @param: String
+	 * @return: void
+	 * @throws FindFailed 
+	 * @throws InterruptedException 
 	 *****************************/
-	public void launchURL(String url) {
+	public void launchURL(String url){
 		driver.get(url);
 	}
 
@@ -60,8 +66,8 @@ public class WebUtils {
 
 	/*********************************************************************
 	 * The function clicks on the link 
-	 * Params: WebElement 
-	 * Return: void
+	 * @param: WebElement 
+	 * @return: void
 	 ********************************************************************/
 	public void clickLink(WebElement webE) {
 		webE.click();
@@ -69,8 +75,8 @@ public class WebUtils {
 
 	/*********************************************************************
 	 * The function gets text from the webElement 
-	 * Params: WebElement 
-	 * Return: String
+	 * @param: WebElement 
+	 * @return: String
 	 *********************************************************************/
 	
 	public String getText(WebElement webE) {
@@ -79,8 +85,8 @@ public class WebUtils {
 
 	/*********************************************************************
 	 * The function sets text in the webElement 
-	 * Params: WebElement, String 
-	 * Return:void
+	 * @param: WebElement, String 
+	 * @return: void
 	 *********************************************************************/
 	
 	public void setText(WebElement webE, String setString) {
@@ -89,8 +95,8 @@ public class WebUtils {
 
 	/*********************************************************************
 	 * The function clicks on the checkbox if not selected already 
-	 * Params: List<WebElement> 
-	 * Return: void
+	 * @param: List<WebElement> 
+	 * @return: void
 	 ********************************************************************/
 	public void clickCheckBox(List<WebElement> listWebE) {
 		for (WebElement ele : listWebE) {
@@ -107,8 +113,8 @@ public class WebUtils {
 
 	/****************************************
 	 * The function switched to a frame 
-	 * Params: WebElement 
-	 * Return: void
+	 * @param: WebElement 
+	 * @return: void
 	 ***************************************/
 	public void switchToFrame(WebElement webE) {
 		driver.switchTo().frame(webE);
@@ -116,8 +122,8 @@ public class WebUtils {
 
 	/***************************************************************************
 	 * The function helps in selecting an option from dropdown using visible text
-	 * Params: WebElement, String 
-	 * Return: void
+	 * @param: WebElement, String 
+	 * @return: void
 	 ****************************************************************************/
 	public void selectFromDropDownByVisibleText(WebElement webE, String strToSelect) throws InterruptedException {
 		Select sel = new Select(webE);
@@ -131,8 +137,8 @@ public class WebUtils {
 
 	/*******************************************************
 	 * The function is to do a right click on a webelement 
-	 * Params: WebElement
-	 * Return: void
+	 * @param: WebElement
+	 * @return: void
 	 *******************************************************/
 	public void doRightClick(WebElement webE) {
 		Actions actions = new Actions(driver);
@@ -145,8 +151,8 @@ public class WebUtils {
 	 ***************************************************************************/
 	/********************************************
 	 * The function is to accept JS popup 
-	 * Params: none 
-	 * Return: void
+	 * @param: none 
+	 * @return: void
 	 ********************************************/
 	public void acceptJsPopUp() {
 		WebDriverWait wait = new WebDriverWait(driver, 5);
@@ -157,8 +163,8 @@ public class WebUtils {
 
 	/********************************************
 	 * The function destroys the driver instance 
-	 * Params: none 
-	 * Returns: void
+	 * @param: none 
+	 * @return: void
 	 ********************************************/
 	public void tearDown() {
 		driver.quit();
